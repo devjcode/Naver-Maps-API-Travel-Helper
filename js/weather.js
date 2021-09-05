@@ -1,6 +1,7 @@
 const CLIENT_ID = "mh2xhg862g";
 const CLIENT_SECRET = "n6YVWkaxZMNHYq9DEkwOjx33MhS1ML6cWkNjIGvB";
 
+let url = 'https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?request=coordsToaddr&sourcecrs=epsg:4326&orders=admcode,legalcode,addr,roadaddr&output=xml';
 
 // request callback function
 function parse(data) {
@@ -30,19 +31,15 @@ function jqueryAjaxRequest(lat,lng) {
 }
 
 function fetchRequest(lat,lng) {
-    const url = `https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?request=coordsToaddr&coords=${lat},${lng}&sourcecrs=epsg:4326&orders=admcode,legalcode,addr,roadaddr&output=xml`;
-    
-    const authHeader = new Headers({
-        "X-NCP-APIGW-API-KEY-ID": CLIENT_ID,
-        "X-NCP-APIGW-API-KEY": CLIENT_SECRET
-    });
+    url = 'https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?request=coordsToaddr&coords=129.1133567,35.2982640&sourcecrs=epsg:4326&orders=admcode,legalcode,addr,roadaddr&output=xml'
 
     fetch(url, {
-        headers: authHeader,
-        mode: 'no-cors'
-    })
-    .then((response) => response.text())
-    .then((data)=> console.log(data));
+        mode: 'no-cors', //cors 문제 해결
+        headers: {
+            "X-NCP-APIGW-API-KEY-ID": CLIENT_ID,
+            "X-NCP-APIGW-API-KEY": CLIENT_SECRET
+        }
+    });
 }
 
 
