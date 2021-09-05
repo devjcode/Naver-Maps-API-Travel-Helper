@@ -2,9 +2,6 @@ const CLIENT_ID = "mh2xhg862g";
 const CLIENT_SECRET = "n6YVWkaxZMNHYq9DEkwOjx33MhS1ML6cWkNjIGvB";
 
 
-
-
-
 function naverMap(lat, lng) {
     var mapOptions = {
         center: new naver.maps.LatLng(lng, lat),
@@ -21,7 +18,6 @@ function parse(data) {
     const location = document.querySelector('#location');
     location.innerText = r;
 }
-
 function jqueryAjaxRequest(lat,lng) {
     const url = `https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?request=coordsToaddr&coords=${lng},${lat}&orders=admcode,legalcode,addr,roadaddr&output=json&sourcecrs=epsg:4326&callback=parse`;
     
@@ -41,17 +37,15 @@ function jqueryAjaxRequest(lat,lng) {
     });
 }
 
-
 function onGeoOk(position) {
     const lat = position.coords.latitude;
     const lng = position.coords.longitude;
 
     jqueryAjaxRequest(lat,lng);
-
-
+    naverMap(lat, lng);
 }   
 function onGeoError() {
-    alert("I can't find you ");
+    alert("I can't find you !");
 }
 
 
