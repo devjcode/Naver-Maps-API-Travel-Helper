@@ -37,15 +37,6 @@ function onGeoOk(position) {
 
     jqueryAjaxRequest(lat,lng);
 
-    var mapOptions = {
-        center: new naver.maps.LatLng(lng, lat),
-        zoom: 10
-    };
-    
-    var map = new naver.maps.Map(document.querySelector('#map'), mapOptions);
-    
-    
-
 }   
 function onGeoError() {
     alert("I can't find you ");
@@ -54,3 +45,10 @@ function onGeoError() {
 
 
 navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError);
+
+var mapOptions = {
+    center: new naver.maps.LatLng(33.3590628, 126.534361),
+    zoom: 10
+};
+
+var map = new naver.maps.Map(document.querySelector('#map'), mapOptions);
