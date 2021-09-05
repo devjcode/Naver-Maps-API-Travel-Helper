@@ -1,7 +1,18 @@
-
-
 const CLIENT_ID = "mh2xhg862g";
 const CLIENT_SECRET = "n6YVWkaxZMNHYq9DEkwOjx33MhS1ML6cWkNjIGvB";
+
+
+
+
+
+function naverMap(lat, lng) {
+    var mapOptions = {
+        center: new naver.maps.LatLng(lng, lat),
+        zoom: 10
+    };
+    
+    var map = new naver.maps.Map(document.querySelector('#map'), mapOptions);
+}
 
 // request callback function
 function parse(data) {
@@ -37,18 +48,12 @@ function onGeoOk(position) {
 
     jqueryAjaxRequest(lat,lng);
 
+
 }   
 function onGeoError() {
     alert("I can't find you ");
 }
 
 
-
 navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError);
 
-var mapOptions = {
-    center: new naver.maps.LatLng(33.3590628, 126.534361),
-    zoom: 10
-};
-
-var map = new naver.maps.Map(document.querySelector('#map'), mapOptions);
