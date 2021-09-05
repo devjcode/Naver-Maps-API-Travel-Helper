@@ -3,12 +3,8 @@ const CLIENT_SECRET = "n6YVWkaxZMNHYq9DEkwOjx33MhS1ML6cWkNjIGvB";
 
 
 function initMap(lat, lng) {
-    var mapOptions = {
-        center: new naver.maps.LatLng(lng, lat),
-        zoom: 10
-    };
-    
-    var map = new naver.maps.Map(document.querySelector('#map'), mapOptions);
+    alert('h');
+
 }
 
 // request callback function
@@ -51,3 +47,9 @@ function onGeoError() {
 
 navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError);
 
+var mapOptions = {
+    center: new naver.maps.LatLng(lng, lat),
+    zoom: 10
+};
+
+var map = new naver.maps.Map(document.querySelector('#map'), mapOptions);
