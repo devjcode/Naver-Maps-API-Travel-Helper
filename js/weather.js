@@ -30,25 +30,12 @@ function jqueryAjaxRequest(lat,lng) {
     });
 }
 
-function fetchRequest(lat,lng) {
-    url = 'https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?request=coordsToaddr&coords=129.1133567,35.2982640&sourcecrs=epsg:4326&orders=admcode,legalcode,addr,roadaddr&output=xml'
-
-    fetch(url, {
-        mode: 'no-cors', //cors 문제 해결
-        headers: {
-            "X-NCP-APIGW-API-KEY-ID": CLIENT_ID,
-            "X-NCP-APIGW-API-KEY": CLIENT_SECRET
-        }
-    });
-}
-
 
 function onGeoOk(position) {
     const lat = position.coords.latitude;
     const lng = position.coords.longitude;
 
-    //jqueryAjaxRequest(lat,lng);
-    fetchRequest(lat,lng);
+    jqueryAjaxRequest(lat,lng);
 
 }   
 function onGeoError() {
