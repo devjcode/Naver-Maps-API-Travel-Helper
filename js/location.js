@@ -2,7 +2,7 @@ const CLIENT_ID = "mh2xhg862g";
 const CLIENT_SECRET = "n6YVWkaxZMNHYq9DEkwOjx33MhS1ML6cWkNjIGvB";
 
 
-function naverMap(lat, lng) {
+function initMap(lat, lng) {
     var mapOptions = {
         center: new naver.maps.LatLng(lng, lat),
         zoom: 10
