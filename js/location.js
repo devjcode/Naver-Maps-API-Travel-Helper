@@ -92,20 +92,10 @@ function jqueryAjaxRequest(lat,lng) {
 function onGeoOk(position) {
     lat = position.coords.latitude;
     lng = position.coords.longitude;
-<<<<<<< HEAD
     
     //구한 좌표로 reverse geocoding 통신
     jqueryAjaxRequest(lat,lng);
 
-=======
-    const loc = new naver.maps.LatLng(lat, lng);
-
-    //구한 좌표로 reverse geocoding 통신
-    jqueryAjaxRequest(lat,lng);
-
-    //구한 좌표를 naveMap에 표시
-    map.setCenter(loc);
->>>>>>> bfcdcd73eb061cb60065e47c41ffde7dfdcbb474
 }   
 function onGeoError() {
     alert("I can't find you !");
