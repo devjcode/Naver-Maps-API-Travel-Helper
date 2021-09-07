@@ -1,9 +1,65 @@
 const CLIENT_ID = "mh2xhg862g";
 const CLIENT_SECRET = "n6YVWkaxZMNHYq9DEkwOjx33MhS1ML6cWkNjIGvB";
 
+const CL = "current location";
+const saveButton = document.querySelector('#saveLocation');
+const locationList = document.querySelector('#location-list');
+let currentLocation = [];
 
-function initMap(lat, lng) {
-    alert('h');
+let lat,lng;
+let map;
+
+function saveLoc() {
+    localStorage.setItem(CL, JSON.stringify(currentLocation));
+}
+
+function loadLoc() {
+    const savedLoc = localStorage.getItem(CL);
+
+    if(savedLoc != null) {
+        const parsedLoc = JSON.parse(savedLoc);
+
+        currentLocation = parsedLoc;
+        parsedLoc.forEach(paintLoc);
+    }
+}
+
+function paintLoc(l) {
+    const li = document.createElement('li');
+    li.innerText = `${l.lat} / ${l.lng }`;
+    locationList.appendChild(li);
+
+    console.log(map);
+
+    const marker = new naver.maps.Marker({
+        position: new naver.maps.LatLng(l.lat, l.lng),
+        map: map,
+    });
+    const tmpl = new naver.maps.LatLng(l.lat,l.lng);
+    
+    marker.setPosition(tmpl);
+    console.log('paint');
+    
+}
+
+function initMap() {
+    const loc = new naver.maps.LatLng(lat, lng);
+    map = new naver.maps.Map(document.querySelector('#map'));
+    map.setCenter(loc);
+    
+    naver.maps.Event.addListener(map, 'click', function(e) {
+        const marker = new naver.maps.Marker({
+            map: map,
+        });
+        marker.setPosition(e.latlng);
+
+        const tmploc = {
+            "lat":e.latlng._lat,
+            "lng":e.latlng._lng
+        }
+
+        currentLocation.push(tmploc);
+    });
 
 }
 
@@ -17,7 +73,7 @@ function parse(data) {
 function jqueryAjaxRequest(lat,lng) {
     const url = `https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?request=coordsToaddr&coords=${lng},${lat}&orders=admcode,legalcode,addr,roadaddr&output=json&sourcecrs=epsg:4326&callback=parse`;
     
-    var settings = {
+    const settings = {
         url: url,
         dataType:'jsonp',
         method: "GET",
@@ -34,11 +90,12 @@ function jqueryAjaxRequest(lat,lng) {
 }
 
 function onGeoOk(position) {
-    const lat = position.coords.latitude;
-    const lng = position.coords.longitude;
-
+    lat = position.coords.latitude;
+    lng = position.coords.longitude;
+    
+    //구한 좌표로 reverse geocoding 통신
     jqueryAjaxRequest(lat,lng);
-    naverMap(lat, lng);
+
 }   
 function onGeoError() {
     alert("I can't find you !");
@@ -46,10 +103,9 @@ function onGeoError() {
 
 
 navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError);
+saveButton.addEventListener('click', saveLoc);
+loadLoc();
 
-var mapOptions = {
-    center: new naver.maps.LatLng(lng, lat),
-    zoom: 10
-};
 
-var map = new naver.maps.Map(document.querySelector('#map'), mapOptions);
+
+
